@@ -1,5 +1,5 @@
 {
-  "name": "@ovr/js-acl",
+  "name": "@lowl/js-acl",
   "version": "0.2.0",
   "description": "Provides a lightweight and flexible ACL implementation for privileges management in JS/NodeJS",
   "homepage": "https://github.com/StyleT/js-acl",
