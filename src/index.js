@@ -230,7 +230,7 @@ function Acl() {
 
                 // look for rule on 'allRoles' pseudo-parent
                 var rules;
-                if ((rules = getRules(resource, null)) !== null) {
+                if ((rules = self.getRules(resource, null)) !== null) {
                     for (privilege in rules.byPrivilegeId) {
                         if (self.TYPE_DENY === getRuleType(resource, null, privilege)) {
                             return false;
@@ -708,7 +708,7 @@ function Acl() {
             case self.OP_ADD:
                 resources.forEach(function (resource) {
                     roles.forEach(function (role) {
-                        var rules = getRules(resource, role, true);
+                        var rules = self.getRules(resource, role, true);
                         if (privileges.length === 0) {
                             set(rules, 'allPrivileges.type', type);
                             set(rules, 'allPrivileges.assert', assert);
@@ -729,7 +729,7 @@ function Acl() {
             case self.OP_REMOVE:
                 resources.forEach(function (resource) {
                     roles.forEach(function (role) {
-                        var rules = getRules(resource, role);
+                        var rules = self.getRules(resource, role);
                         if (rules === null) {
                             return;
                         }
@@ -780,7 +780,7 @@ function Acl() {
      * @param {boolean} [create=false]
      * @return {Object|null}
      */
-    function getRules (resource, role, create) {
+    self.getRules = function (resource, role, create) {
         resource = typeof resource === 'undefined' ? null : resource;
         role = typeof role === 'undefined' ? null : role;
         create = typeof create === 'undefined' ? false : create;
@@ -880,7 +880,7 @@ function Acl() {
         }
 
         var rules;
-        if ((rules = getRules(resource, role)) !== null) {
+        if ((rules = self.getRules(resource, role)) !== null) {
             for (var privilege in rules.byPrivilegeId) {
                 if (self.TYPE_DENY === getRuleType(resource, role, privilege)) {
                     return false;
@@ -1011,7 +1011,7 @@ function Acl() {
 
 
         // get the rules for the $resource and $role
-        var rules = getRules(resource, role), rule;
+        var rules = self.getRules(resource, role), rule;
         if (rules === null) {
             return null;
         }
